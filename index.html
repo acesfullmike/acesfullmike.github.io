@@ -1,378 +1,41 @@
-<!-- 最后更新 10:58:59 PM, Tuesday, Feb 27, 2018 GMT+8 -->
-<!doctype html>
-<html lang="zh-CN">
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-    <title>青春103地图 by Carospop</title>
-    <link rel="stylesheet" href="http://webapi.amap.com/ui/1.0/ui/misc/MarkerList/examples/index.css">
-    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    
-		<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
-    <script src='http://webapi.amap.com/maps?v=1.4.3&key=02a37b38c4b33a671f1cd1584b54adc8'></script>
-    <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
-    
-    <script src="https://gitee.com/thewire/todos/raw/master/high/matesData.js"></script>
-    <script src="https://gitee.com/thewire/todos/raw/master/high/capture/capturewrapper.js"></script>
-		<script src="https://gitee.com/thewire/todos/raw/master/high/capture/jquery.json-2.3.min.js"></script>
-		<script src="https://gitee.com/thewire/todos/raw/master/high/capture/niuniucapture.js"></script>
-		<script src="https://gitee.com/thewire/todos/raw/master/high/capture/push.js"></script>
-		<script src="https://gitee.com/thewire/todos/raw/master/high/capture/entry.js"></script>
+	<meta charset="utf-8"> 
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+	<title>Celine in 2018</title>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    
-    <style>
-			#btnList li {text-align:right;}
-		</style>
+	<script src="celineVideosData.js"></script>
+	<script src="celine.js"></script>
+	<script>
+      $(document).ready(function(){
+				init();
+      });
+	</script>
+
 </head>
-
+<html>
 <body>
-    <div id="outer-box">
-        <div id="container" tabindex="0"></div>
-        <div id="panel" class="scrollbar1">
-  	      	<input type="text" id="criteria" class="form-control" placeholder="回车搜索, www.shawn-works.com/demo">  
-            <ul id="myList">
-        				<audio controls autoplay="autoplay" loop="true"><source src='https://gitee.com/thewire/bible/raw/master/road2serfdom.mp3' type='audio/mp3'>	
-            </ul>
-        </div>
-        <ul id="btnList">
-        		<li>
-	 	      			<select id="cities" class="form-control"></select> 
-        		</li>
-        		<li>
- 		        		<button class="btn btn-info" onclick="javascript:markerList.clearSelected();" type="submit">清除选中</button>
-        		</li>
-        		<li>
-        				<button id="pick" onclick="window.open('pick.html')" class="btn btn-default">查坐标</button>
-        		</li>
-        		<li>
- 		        		<button class="btn btn-success" onclick="javascript:StartCapture();" type="submit">截屏</button>
-        		</li>
-        		<li>
- 		        		<button id="kount" class="btn btn-danger"/>
-        		</li>
-        </ul>
-    </div>
-    <script type="text/javascript">
-    
-    //创建地图
-    var map = new AMap.Map('container', {
-        zoom: 7
-    });
-    
-     map.plugin(["AMap.ToolBar"],function(){
-        //加载工具条
-        tool = new AMap.ToolBar({
-            //初始化定义配置
-            direction:true,//隐藏方向导航
-            ruler:true//隐藏视野级别控制尺
-            //autoPosition:false//禁止自动定位
-        });
-        map.addControl(tool);
-    });
-
-    AMapUI.loadUI(['misc/MarkerList', 'overlay/SimpleMarker', 'overlay/SimpleInfoWindow'],
-        function(MarkerList, SimpleMarker, SimpleInfoWindow) {
-
-            //即jQuery/Zepto
-            var $ = MarkerList.utils.$;
-
-            var defaultIconStyle = 'red', //默认的图标样式
-                hoverIconStyle = 'green', //鼠标hover时的样式
-                selectedIconStyle = 'purple' //选中时的图标样式
-            ;
-
-            var markerList = new MarkerList({
-                map: map,
-                //ListElement对应的父节点或者ID
-                listContainer: "myList", //document.getElementById("myList"),
-                //选中后显示
-
-                //从数据中读取位置, 返回lngLat
-                getPosition: function(item) {
-                    //return [item.longitude, item.latitude];
-                    return item.location.split(',');
-                },
-                //数据ID，如果不提供，默认使用数组索引，即index
-                getDataId: function(item, index) {
-
-                    return item.name;
-                },
-                getInfoWindow: function(data, context, recycledInfoWindow) {
-                		var href = "https://www.baidu.com/s?wd=" + encodeURI(data.name);
-										var link = '<a target="_blank" href="' + href + '\">' + data.name + '</a>';
-                    if (recycledInfoWindow) {
-                        recycledInfoWindow.setInfoTitle(link);
-                        recycledInfoWindow.setInfoBody(data.address);
-
-                        return recycledInfoWindow;
-                    }
-
-                    return new SimpleInfoWindow({
-                        infoTitle: link,
-                        infoBody: data.address,
-                        offset: new AMap.Pixel(0, -37)
-                    });
-                },
-                //构造marker用的options对象, content和title支持模板，也可以是函数，返回marker实例，或者返回options对象
-                getMarker: function(data, context, recycledMarker) {
-
-                    //var label = String.fromCharCode('A'.charCodeAt(0) + context.index) + data.name;
-                    var label = "&nbsp;" + (context.index + 1) + data.name;
-                    if (recycledMarker) {
-                        recycledMarker.setIconLabel(label);
-                        return;
-                    }
-
-                    return new SimpleMarker({
-                        containerClassNames: 'my-marker',
-                        iconStyle: defaultIconStyle,
-                        iconLabel: label
-                    });
-                },
-                //构造列表元素，与getMarker类似，可以是函数，返回一个dom元素，或者模板 html string
-                getListElement: function(data, context, recycledListElement) {
-
-                    //var label = String.fromCharCode('A'.charCodeAt(0) + context.index);
-										var label = (context.index + 1);
-                    //使用模板创建
-                    var innerHTML = MarkerList.utils.template('<div class="poi-imgbox">' +
-                        '    <span class="poi-img" style="background-image:url(https://gitee.com/thewire/todos/raw/master/high/images/<%- data.phone %>.png)"></span>' +
-                        '</div>' +
-                        '<div class="poi-info-left">' +
-                        '    <div class="poi-info">' +
-                        '        <font color="blue"><%- label %>. <%- data.name %></font> <font color="green"><%- data.phone %></font>' + 
-                        '    </div>' +
-                        '    <h3 class="poi-title">' +
-                        '        <p class="poi-addr"><font color="red"><%- data.city %></font> <%- data.address %></p>' +
-                        '    </h3>' +
-                        '</div>' +
-                        '<div class="clear"></div>', {
-                            data: data,
-                            label: label
-                        });
-
-                    if (recycledListElement) {
-                        recycledListElement.innerHTML = innerHTML;
-                        return recycledListElement;
-                    }
-
-                    return '<li class="poibox">' + innerHTML + '</li>';
-                },
-                //列表节点上监听的事件
-                listElementEvents: ['click', 'mouseenter', 'mouseleave'],
-                //marker上监听的事件
-                markerEvents: ['click', 'mouseover', 'mouseout'],
-                //makeSelectedEvents:false,
-                selectedClassNames: 'selected',
-                autoSetFitView: true
-            });
-
-						$("#criteria").keyup(queryViaEnter);
-						function queryViaEnter() {
-								var e = window.event;
-								if (e.keyCode == "13") {		
-										var myCriteria = $.trim($("#criteria").val());
-										loadData(myCriteria);
-								}
-						}
-
-            window.markerList = markerList;
-
-            markerList.on('selectedChanged', function(event, info) {
-
-                checkBtnStats();
-
-                if (info.selected) {
-
-                    console.log(info);
-
-                    if (info.selected.marker) {
-                        //更新为选中样式
-                        info.selected.marker.setIconStyle(selectedIconStyle);
-                    }
-
-                    //选中并非由列表节点上的事件触发，将关联的列表节点移动到视野内
-                    if (!info.sourceEventInfo.isListElementEvent) {
-
-                        if (info.selected.listElement) {
-                            scrollListElementIntoView($(info.selected.listElement));
-                        }
-                    }
-                }
-
-                if (info.unSelected && info.unSelected.marker) {
-                    //更新为默认样式
-                    info.unSelected.marker.setIconStyle(defaultIconStyle);
-                }
-            });
-
-            markerList.on('listElementMouseenter markerMouseover', function(event, record) {
-
-                if (record && record.marker) {
-
-                    forcusMarker(record.marker);
-
-                    //this.openInfoWindowOnRecord(record);
-
-                    //非选中的id
-                    if (!this.isSelectedDataId(record.id)) {
-                        //设置为hover样式
-                        record.marker.setIconStyle(hoverIconStyle);
-                        //this.closeInfoWindow();
-                    }
-                }
-            });
-
-            markerList.on('listElementMouseleave markerMouseout', function(event, record) {
-
-                if (record && record.marker) {
-
-                    if (!this.isSelectedDataId(record.id)) {
-                        //恢复默认样式
-                        record.marker.setIconStyle(defaultIconStyle);
-                    }
-                }
-            });
-
-            //数据输出完成
-            markerList.on('renderComplete', function(event, records) {
-
-                checkBtnStats();
-            });
-
-            //加载数据
-            function loadData(criteria) {
-            		var newData = filter(criteria);
-                markerList.render(newData);
-                $("#kount").text(newData.length);
-//                map.setFitView();
-            }
-            
-            $("#cities").change(cityChange);
-						initCities();
-						
-						function initCities() {
-								var selObj = $("#cities");
-								selObj.append("<option>" + "--全部--" + "</option>");
-								var names = [];
-								for (var i = 0; i < matesData.length; i += 1) {
-										var item = matesData[i];
-										var name = item.city;
-										if($.inArray(name,names) == -1) {
-												names.push(name);
-												selObj.append("<option>" + name + "</option>");
-										}
-								}
-						}
-            
-            function cityChange() {
-								var text = $(this).children('option:selected').text();
-								var index = $(this).children('option:selected').index();
-								if(index == 0) {
-										loadData();
-								} else {
-										var myCriteria = text;
-										loadData(myCriteria);
-								}
-								
-						}
-            
-            function filter(criteria) {
-				    		if (criteria == undefined) {
-				    				console.log("criteria: " + criteria);
-				    				return matesData;
-				    		}
-				    		var godaddy = [];
-				    		console.log("criteria:" + criteria)
-								for (var i = 0; i < matesData.length; i++) {
-										var item = matesData[i];
-								    if (isMatched(item.name, criteria)||isMatched(item.phone, criteria)||isMatched(item.address, criteria)||isMatched(item.city, criteria)) {
-								        godaddy.push(item);
-								    }
-								}
-								
-								return godaddy;
-				    }
-				    
-				    function isMatched(str, criteria) {
-				    		return str.indexOf(criteria) != -1	
-				    }
-
-            var $btns = $('#btnList input[data-path]');
-
-            /**
-             * 检测各个button的状态
-             */
-            function checkBtnStats() {
-                $('#btnList input[data-enable]').each(function() {
-
-                    var $input = $(this),
-                        codeEval = $input.attr('data-enable');
-
-                    $input.prop({
-                        disabled: !eval(codeEval)
-                    });
-                });
-            }
-
-            $('#btnList').on('click', 'input', function() {
-
-                var $input = $(this),
-                    dataPath = $input.attr('data-path'),
-                    codeEval = $input.attr('data-eval');
-
-                if (codeEval) {
-                    eval(codeEval);
-                }
-
-                checkBtnStats();
-            });
-
-            loadData();
-
-            function forcusMarker(marker) {
-                marker.setTop(true);
-
-                //不在地图视野内
-                if (!(map.getBounds().contains(marker.getPosition()))) {
-
-                    //移动到中心
-                    map.setCenter(marker.getPosition());
-                }
-            }
-
-            function isElementInViewport(el) {
-                var rect = el.getBoundingClientRect();
-
-                return (
-                    rect.top >= 0 &&
-                    rect.left >= 0 &&
-                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
-                );
-            }
-
-            function scrollListElementIntoView($listEle) {
-
-                if (!isElementInViewport($listEle.get(0))) {
-                    $('#panel').scrollTop($listEle.offset().top - $listEle.parent().offset().top);
-                }
-
-                //闪动一下
-                $listEle
-                    .one('webkitAnimationEnd oanimationend msAnimationEnd animationend',
-                        function(e) {
-                            $(this).removeClass('flash animated');
-                        }).addClass('flash animated');
-            }
-
-
-        });
-    </script>
+<div>
+	<div id="condition">
+	<div class="input-group col-xs-12">  
+        <input type="text" name="keyword" id="criteria" class="form-control" placeholder="请输入名称，回车搜索">  
+        <span class="input-group-btn">  
+            <button class="btn btn-success" id="btnSearch" type="submit">N</button>  
+        </span>
+    </div>  
+	</div>
+	<div id="table">
+		<table id="detail" class="table table-hover" style="width:100%">
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
 </body>
-
 </html>
